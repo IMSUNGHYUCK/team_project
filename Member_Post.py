@@ -24,7 +24,7 @@ class Post:
 
 members = {}
 
-# 멤버 입력
+
 num_members = int(input("멤버 수를 입력하세요: "))
 for i in range(num_members):
     name = input(f"{i+1}번째 멤버의 이름을 입력하세요: ")
@@ -32,29 +32,29 @@ for i in range(num_members):
     password = input("비밀번호를 입력하세요: ")
     members[user_id] = Member(name, user_id, password)
 
-# 모든 멤버 출력
+
 for member in members.values():
     print(member)
 
 posts = []
 
-# 멤버 객체에서 포스트 생성
+
 for member in members.values():
     title = input(f"{member.name}님, 포스트의 제목을 입력하세요: ")
     content = input("포스트의 내용을 입력하세요: ")
     posts.append(Post(title, content, member.name))
 
-# 모든 포스트 출력
+
 for post in posts:
     print(post)
 
-# '임성혁'이 작성한 포스트 제목 출력
+
 print("\n'임성혁'이 작성한 포스트 제목:")
 for post in posts:
     if post.author == '임성혁':
         print(post.title)
 
-# 포스트 내용에 '사랑'이 포함된 포스트 제목 출력
+
 print("\n포스트 내용에 '사랑'이 포함된 포스트 제목:")
 for post in posts:
     if '사랑' in post.content:

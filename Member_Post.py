@@ -3,7 +3,7 @@ class Member:
         self.name = name
         self.user_id = user_id
         self.password = password
-        1111
+
 
     def display(self):
         print(f'사용자의 이름은 {self.name}, 사용자의 아이디는 {self.user_id} 입니다.')

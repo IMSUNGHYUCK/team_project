@@ -3,7 +3,6 @@ class Member:
         self.name = name
         self.user_id = user_id
         self.password = password
-        1111
 
 
 

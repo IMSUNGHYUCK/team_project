@@ -55,7 +55,7 @@ for post in posts:
     print(post)
 
 
-print("\n'임성혁'이 작성한 포스트 제목:")
+print("\n'dlatjdrnf'이 작성한 포스트 제목:")
 for post in posts:
     if post.author == 'dlatjdrnf':
         print(post.title)

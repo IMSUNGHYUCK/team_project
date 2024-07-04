@@ -45,7 +45,7 @@ posts = []
 for member in members.values():
     title = input(f"{member.name}님, 포스트의 제목을 입력하세요: ")
     content = input("포스트의 내용을 입력하세요: ")
-    posts.append(Post(title, content, member.name))
+    posts.append(Post(title, content, member.user_id))
 
 for member in members.values():
     member.display()
@@ -57,7 +57,7 @@ for post in posts:
 
 print("\n'임성혁'이 작성한 포스트 제목:")
 for post in posts:
-    if post.author == '임성혁':
+    if post.author == 'dlatjdrnf':
         print(post.title)
 
 

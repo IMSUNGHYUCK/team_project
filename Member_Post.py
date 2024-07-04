@@ -33,6 +33,8 @@ for i in range(num_members):
     password = input("비밀번호를 입력하세요: ")
     members[user_id] = Member(name, user_id, password)
 
+for member in members.values():
+    member.display()
 
 for member in members.values():
     print(member)
@@ -44,6 +46,9 @@ for member in members.values():
     title = input(f"{member.name}님, 포스트의 제목을 입력하세요: ")
     content = input("포스트의 내용을 입력하세요: ")
     posts.append(Post(title, content, member.name))
+
+for member in members.values():
+    member.display()
 
 
 for post in posts:

@@ -1,104 +1,134 @@
 <!doctype html>
 <html lang="ko">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>가위바위보 게임</title>
     <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-        margin: 0;
-      }
-      header, main, footer {
-        width: 100%;
-        max-width: 600px;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-      header {
-        flex: 0 1 auto;
-      }
-      main {
-        flex: 1 0 auto;
-      }
-      footer {
-        flex: 0 1 auto;
-        border-top: 1px solid #ccc;
-        padding-top: 10px;
-      }
-      h1 {
-        font-size: 2em;
-        margin: 20px 0;
-      }
-      form {
-        margin-bottom: 20px;
-      }
-      select {
-        font-size: 1.2em;
-      }
-      button {
-        font-size: 1.2em;
-        margin-left: 10px;
-      }
-      .log {
-        max-height: 200px;
-        overflow-y: auto;
-        text-align: left;
-        padding: 10px;
-      }
-      .log p {
-        margin: 0;
-        padding: 5px;
-      }
-      .images {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-      }
-      .emoji-label {
-        cursor: pointer;
-        font-size: 2em;
-      }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        header, main, footer {
+            width: 100%;
+            max-width: 1500px; /* 전체적인 너비조정 */
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #f0f0f0;
+        }
+
+        main {
+            background-color: #ffffff;
+            padding: 20px;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #f0f0f0;
+            border-top: 1px solid #cccccc;
+            padding-top: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .emoji-label {
+            cursor: pointer;
+            font-size: 2em;
+        }
+
+        .log {
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
     </style>
-  </head>
-  <body>
-    <header>
-      <h1>가위바위보 게임</h1>
-    </header>
-    <main>
-      <form method="post" action="/">
-        <div class="images">
-          <label class="emoji-label">
-            <input type="radio" name="user" value="가위" hidden>
-            ✌️
-          </label>
-          <label class="emoji-label">
-            <input type="radio" name="user" value="바위" hidden>
-            ✊
-          </label>
-          <label class="emoji-label">
-            <input type="radio" name="user" value="보" hidden>
-            ✋
-          </label>
-        </div>
-        <button type="submit">확인</button>
-      </form>
-      <form method="post" action="/">
+    <script>
+        function submitForm(choice) {
+            document.getElementById('hidden_user').value = choice;
+            document.getElementById('game_form').submit();
+        }
+    </script>
+</head>
+<body>
+<header>
+    <h1>가위바위보 게임</h1>
+</header>
+<main>
+    <div class="images">
+        <span class="emoji-label" onclick="submitForm('가위')">✌️</span>
+        <span class="emoji-label" onclick="submitForm('바위')">✊</span>
+        <span class="emoji-label" onclick="submitForm('보')">✋</span>
+    </div>
+    <form id="game_form" method="post" action="/">
+        <input type="hidden" id="hidden_user" name="hidden_user" value="">
+        <button type="submit" style="display: none;">확인</button>
+    </form>
+    <form method="post" action="/">
         <input type="hidden" name="user" value="reset">
         <button type="submit">게임 초기화</button>
-      </form>
-      <p>{{ cont_win }}승 {{ cont_lose }}패 {{ cont_draw }}무 입니다.</p>
-    </main>
-    <footer>
-      <div class="log">
-        {% for entry in log %}
-          <p>컴퓨터: {{ entry.com | safe }}, 사용자: {{ entry.user | safe }}, 결과: {{ entry.result }}</p>
-        {% endfor %}
-      </div>
-    </footer>
-  </body>
+    </form>
+    <p>{{ cont_win }}승 {{ cont_lose }}패 {{ cont_draw }}무 입니다.</p>
+</main>
+<footer>
+    <div class="log">
+        <h2>게임 결과</h2>
+        <table>
+            <tr>
+                <th>게임 번호</th>
+                <th>컴퓨터</th>
+                <th>사용자</th>
+                <th>결과</th>
+            </tr>
+            {% for entry in log %}
+                <tr>
+                    <td>{{ entry.game_id }}</td>
+                    <td>{{ entry.com | safe }}</td>
+                    <td>{{ entry.user | safe }}</td>
+                    <td>{{ entry.result }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</footer>
+</body>
 </html>

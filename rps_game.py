@@ -7,22 +7,18 @@ app = Flask(__name__)
 list_user = ['가위', '바위', '보']
 emoji_map = {'가위': '✌️', '바위': '✊', '보': '✋'}
 
-
 def reset_scores():
     global cont_win, cont_lose, cont_draw
     cont_win = 0
     cont_lose = 0
     cont_draw = 0
 
-
 reset_scores()
-
 
 def get_db_connection():
     conn = sqlite3.connect('game.db')
     conn.row_factory = sqlite3.Row
     return conn
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -42,9 +38,9 @@ def index():
             conn.close()
             return redirect(url_for('index'))
 
-        if user not in list_user:
-            return render_template('index.html', message='잘못 입력하셨습니다. 가위, 바위, 보 중 하나를 선택해주세요', cont_win=cont_win,
-                                   cont_lose=cont_lose, cont_draw=cont_draw, log=[])
+        # if user not in list_user:
+        #     return render_template('index.html', message='잘못 입력하셨습니다. 가위, 바위, 보 중 하나를 선택해주세요', cont_win=cont_win,
+        #                            cont_lose=cont_lose, cont_draw=cont_draw, log=[])
 
         num = random.randint(1, 3)
         com = list_user[num - 1]
@@ -66,16 +62,18 @@ def index():
         conn.close()
 
     conn = get_db_connection()
-    log = conn.execute(
-        'SELECT id, user_choice, com_choice, result, timestamp FROM game_results ORDER BY timestamp DESC').fetchall()
+    log = conn.execute('''
+        SELECT id, user_choice, com_choice, result, timestamp, 
+        ROW_NUMBER() OVER (ORDER BY timestamp) AS game_number 
+        FROM game_results
+    ''').fetchall()
     conn.close()
 
     log_entries = [
-        {'game_id': entry['id'], 'user': emoji_map[entry['user_choice']], 'com': emoji_map[entry['com_choice']],
+        {'game_id': entry['game_number'], 'user': emoji_map[entry['user_choice']], 'com': emoji_map[entry['com_choice']],
          'result': entry['result']} for entry in log]
 
     return render_template('index.html', cont_win=cont_win, cont_lose=cont_lose, cont_draw=cont_draw, log=log_entries)
-
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:C:\Users\임성혁\Desktop\python_team8\team_project\game.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="game [2]" uuid="a5da31fa-a65e-4795-ad9e-3c11b0db64a7">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\IM\Desktop\git_test\venv\team_project\game.db</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

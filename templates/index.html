@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -12,21 +12,21 @@
             height: 100vh;
             font-family: Arial, sans-serif;
             margin: 0;
+            background: #1E1930;
+            color: #D2D1D5;
         }
-
-        header, main, footer {
+        header, main {
             width: 100%;
-            max-width: 1500px; /* 전체적인 너비조정 */
+            max-width: 1800px;
             text-align: center;
             margin-bottom: 20px;
             padding: 20px;
             box-sizing: border-box;
         }
-
         header {
-            background-color: #f0f0f0;
+            background-color: #342F44;
+            color: white;
         }
-
         main {
             background-color: #ffffff;
             padding: 20px;
@@ -34,52 +34,53 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
-        footer {
-            background-color: #f0f0f0;
-            border-top: 1px solid #cccccc;
-            padding-top: 10px;
-        }
-
         h1 {
             font-size: 2em;
             margin: 20px 0;
         }
-
-        form {
-            margin-bottom: 20px;
-        }
-
         .images {
             display: flex;
             justify-content: center;
             gap: 20px;
         }
-
         .emoji-label {
             cursor: pointer;
             font-size: 2em;
         }
-
         .log {
             max-height: 300px;
             overflow-y: auto;
             text-align: left;
             padding: 10px;
+            background: #1E1930;
+            color: #D2D1D5;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
         }
-
         table, th, td {
             border: 1px solid black;
         }
-
         th, td {
             padding: 8px;
             text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #2e2649;
+        }
+        tr:nth-child(odd) {
+            background-color: #423b5b;
+        }
+        th {
+            background-color: #342F44;
+            color: white;
+        }
+        .noBorder {
+            border: none !important;
+        }
+        .resul-text{
+            color: black;
         }
     </style>
     <script>
@@ -107,9 +108,7 @@
         <input type="hidden" name="user" value="reset">
         <button type="submit">게임 초기화</button>
     </form>
-    <p>{{ cont_win }}승 {{ cont_lose }}패 {{ cont_draw }}무 입니다.</p>
-</main>
-<footer>
+    <p class="resul-text">{{ cont_win }}승 {{ cont_lose }}패 {{ cont_draw }}무 입니다.</p>
     <div class="log">
         <h2>게임 결과</h2>
         <table>
@@ -129,6 +128,6 @@
             {% endfor %}
         </table>
     </div>
-</footer>
+</main>
 </body>
 </html>
